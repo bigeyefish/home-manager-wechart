@@ -1,7 +1,7 @@
 ### 本项目为家庭管理系统企业号后台代码。代码结构fork自 [weixin-java-tools的Demo演示程序](https://gitee.com/binary/weixin-java-cp-demo) 。
 #### 项目基于Spring Boot构建，实现微信企业号开发功能。更多信息请查阅：https://github.com/Wechat-Group/weixin-java-tools
 
-[![Build Status](https://travis-ci.org/bigeyefish/home-manager_wechart.svg?branch=master)](https://travis-ci.org/bigeyefish/home-manager_wechart)
+[![Build Status](https://travis-ci.org/bigeyefish/home-manager-wechart.svg?branch=master)](https://travis-ci.org/bigeyefish/home-manager_wechart)
 -----------------------
 
 ## 使用步骤：
