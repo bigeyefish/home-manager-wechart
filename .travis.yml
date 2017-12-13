@@ -15,8 +15,7 @@ before_install:
 after_success:
 - export SSHPASS=$DEPLOY_PASS
 - sh deploy-to-github.sh
-- sshpass -e ssh  -o stricthostkeychecking=no $SERVER_USER@$SERVER_HOST "nohup sh
-  ./deploy-to-vps.sh &"
+- sshpass -e ssh  -o stricthostkeychecking=no $SERVER_USER@$SERVER_HOST "nohup sh ./deploy-to-vps.sh &"
 addons:
   apt:
     packages:
