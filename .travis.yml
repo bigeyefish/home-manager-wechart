@@ -1,4 +1,8 @@
 language: java
+addons:
+  apt:
+    packages:
+    - sshpass
 jdk:
 - oraclejdk8
 script: mvn clean package -Dmaven.test.skip=true
@@ -8,17 +12,10 @@ branches:
 notifications:
   email:
   - $EMAIL_HOST
-before_install:
-- openssl aes-256-cbc -K $encrypted_943c3917b47d_key -iv $encrypted_943c3917b47d_iv
-  -in id_rsa.enc -out ~/.ssh/id_rsa -d
-- chmod 600 ~/.ssh/id_rsa
 after_success:
 - export SSHPASS=$DEPLOY_PASS
 - sh deploy-to-github.sh
 - sshpass -e ssh  -o stricthostkeychecking=no $SERVER_USER@$SERVER_HOST "nohup sh ./deploy-to-vps.sh &"
-addons:
-  apt:
-    packages:
-    - sshpass
+
 dd:
   secure: bmX/1REkPg2N6ZRY3jgGWO7QuMACD6ZMsGb6h5/aVN7zLJ/gwy+rDIjJImYkx7oyM6EDvzEzh5QWdjyyJ/Dcmj7Eb3T3anSqJytP6GrnNPWdG2arbdvZmVZHBWUXz3ejkIbZUj8fDoWXQBxbtMLZDY49pvZQpXmjuI2ubzD52CItDKWudZlTQjApePHGRR4ZvdQ63lIzEVA/Z2wObJu9MhhvBNq9sU02GPIZGXKKcYu99/tZ2qUw1IySHpNhF434sOisPGQcqnOPeAsxe6m0yqU+6iiRG/BWIN95E7mcslmJWA7fB+e28mxe71A6DAoXUHNITnaqpKjksqkXBMs8AyYHqaES47b0q6SsY2uGesD0oDkM7edVK469NYrbZiQjPnRcMRbbhOxpYK3d7PMhJdMKuoq3B6VxH7zTirFHCAghf1CipNBexYRrNGcgHom/Ji2pR+DsfxhC2AX5DAoqNh3tyVzrOk+OFd0zhxMw4znb58/9ntDbye2/0R9Wa15CMKkOLGhj7AsofSslUfl0ljLPZozKrfjYTOVfwSNG8fWJaS0x0RipHZNZZnUC3cW08iBzhmfQxh/CL//qDNHkc1yQYK+NzolIonxIPMz3+kKo/tGx6VSOOI5qS+RghC5XZX/penT9CoVg/chn3dZ0gZZaVla5FHKp0b21hXP7Uvk=
