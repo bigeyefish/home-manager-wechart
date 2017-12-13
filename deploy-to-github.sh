@@ -11,12 +11,10 @@ rev=$(git rev-parse --short HEAD)
 
 cd ./target
 
-echo "init git"
 git init
-echo "config git"
 git config user.name "bigeyefish"
 git config user.email "$EMAIL_HOST"
-echo "set git remote"
+
 git remote add upstream "https://$GH_TOKEN@github.com/bigeyefish/deploy_package.git"
 git fetch upstream
 git reset upstream/master
