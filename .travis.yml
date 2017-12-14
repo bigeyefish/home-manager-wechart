@@ -1,7 +1,7 @@
 language: java
 addons:
   # ssh需要
-  ssh_known_hosts: 47.96.3.69
+  #ssh_known_hosts: $SERVER_HOST
   # sshpass需要
   apt:
     packages:
@@ -18,6 +18,8 @@ notifications:
       - fhxysdcz@126.com
     on_success: never # default: change
     on_failure: always # default: always
+before_deploy:
+- ssh-keyscan -t $TRAVIS_SSH_KEY_TYPES -H $SERVER_HOST 2>&1 | tee -a $HOME/.ssh/known_hosts
 after_success:
 - export SSHPASS=$DEPLOY_PASS
 # - sshpass -e scp  -o stricthostkeychecking=no -r ./target/*.jar $SERVER_USER@$SERVER_HOST:/tmp
