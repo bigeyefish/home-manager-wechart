@@ -18,9 +18,8 @@ notifications:
       - fhxysdcz@126.com
     on_success: never # default: change
     on_failure: always # default: always
-before_deploy:
-- ssh-keyscan -t $TRAVIS_SSH_KEY_TYPES -H $SERVER_HOST 2>&1 | tee -a $HOME/.ssh/known_hosts
 after_success:
+- ssh-keyscan -t $TRAVIS_SSH_KEY_TYPES -H $SERVER_HOST 2>&1 | tee -a $HOME/.ssh/known_hosts
 - export SSHPASS=$DEPLOY_PASS
 # - sshpass -e scp  -o stricthostkeychecking=no -r ./target/*.jar $SERVER_USER@$SERVER_HOST:/tmp
 - sh deploy-to-github.sh
