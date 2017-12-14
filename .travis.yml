@@ -1,5 +1,8 @@
 language: java
 addons:
+  # ssh需要
+  ssh_known_hosts: your-ip
+  # sshpass需要
   apt:
     packages:
     - sshpass
@@ -11,9 +14,13 @@ branches:
   - master
 notifications:
   email:
-  - $EMAIL_HOST
+    recipients:
+      - fhxysdcz@126.com
+    on_success: never # default: change
+    on_failure: always # default: always
 after_success:
 - export SSHPASS=$DEPLOY_PASS
+# - sshpass -e scp  -o stricthostkeychecking=no -r ./target/*.jar $SERVER_USER@$SERVER_HOST:/tmp
 - sh deploy-to-github.sh
 #- sshpass -e ssh  -o stricthostkeychecking=no $SERVER_USER@$SERVER_HOST "sh ./deploy-to-vps.sh "
 - ssh $SERVER_USER@$SERVER_HOST "sh ./deploy-to-vps.sh "
