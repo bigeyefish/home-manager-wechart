@@ -23,8 +23,7 @@ import java.util.Map;
 @Controller
 public class WxErrorController implements ErrorController {
 
-  private static final Logger logger = LoggerFactory
-      .getLogger(WxErrorController.class);
+  private static final Logger logger = LoggerFactory.getLogger(WxErrorController.class);
   private final static String ERROR_PATH = "/error";
   private static WxErrorController appErrorController;
   /**
@@ -56,8 +55,7 @@ public class WxErrorController implements ErrorController {
    */
   @RequestMapping(value = ERROR_PATH, produces = "text/html")
   public ModelAndView errorHtml(HttpServletRequest request) {
-    return new ModelAndView("error",
-        this.getErrorAttributes(request, false));
+    return new ModelAndView("error", this.getErrorAttributes(request, false));
   }
 
   /**
@@ -67,10 +65,8 @@ public class WxErrorController implements ErrorController {
    */
   @RequestMapping(value = ERROR_PATH)
   @ResponseBody
-  public ResponseEntity<Map<String, Object>> error(
-      HttpServletRequest request) {
-    Map<String, Object> body = this.getErrorAttributes(request,
-        this.getTraceParameter(request));
+  public ResponseEntity<Map<String, Object>> error(HttpServletRequest request) {
+    Map<String, Object> body = this.getErrorAttributes(request, this.getTraceParameter(request));
     HttpStatus status = this.getStatus(request);
     return new ResponseEntity<>(body, status);
   }
@@ -90,24 +86,19 @@ public class WxErrorController implements ErrorController {
     return !"false".equals(parameter.toLowerCase());
   }
 
-  private Map<String, Object> getErrorAttributes(HttpServletRequest request,
-                                                 boolean includeStackTrace) {
-    RequestAttributes requestAttributes = new ServletRequestAttributes(
-        request);
-    Map<String, Object> map = this.errorAttributes
-        .getErrorAttributes(requestAttributes, includeStackTrace);
+  private Map<String, Object> getErrorAttributes(HttpServletRequest request, boolean includeStackTrace) {
+    RequestAttributes requestAttributes = new ServletRequestAttributes(request);
+    Map<String, Object> map = this.errorAttributes.getErrorAttributes(requestAttributes, includeStackTrace);
     logger.error("map is [{}]", map);
     String url = request.getRequestURL().toString();
     map.put("URL", url);
-    logger.error("[error info]: status-{}, request url-{}",
-        map.get("status"), url);
+    logger.error("[error info]: status-{}, request url-{}", map.get("status"), url);
     return map;
   }
 
   @SuppressWarnings("static-method")
   private HttpStatus getStatus(HttpServletRequest request) {
-    Integer statusCode = (Integer) request
-        .getAttribute("javax.servlet.error.status_code");
+    Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
     if (statusCode != null) {
       return HttpStatus.valueOf(statusCode);
     }
