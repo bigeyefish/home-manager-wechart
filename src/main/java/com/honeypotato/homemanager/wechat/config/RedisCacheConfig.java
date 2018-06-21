@@ -1,6 +1,6 @@
 package com.honeypotato.homemanager.wechat.config;
 
-import com.honeypotato.homemanager.wechat.redis.Receiver;
+import com.honeypotato.homemanager.wechat.service.SubscribeReceiver;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -52,8 +52,8 @@ public class RedisCacheConfig extends CachingConfigurerSupport{
     }
 
     @Bean
-    MessageListenerAdapter listenerAdapter(Receiver receiver) {
-        return new MessageListenerAdapter(receiver, "receiveMessage");
+    MessageListenerAdapter listenerAdapter(SubscribeReceiver subscribeReceiver) {
+        return new MessageListenerAdapter(subscribeReceiver, "receiveMessage");
     }
 
     @Bean

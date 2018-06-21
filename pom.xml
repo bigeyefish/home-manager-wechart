@@ -18,7 +18,7 @@
 	<description>wechart background service for home manager system</description>
 
 	<properties>
-		<weixin-java-cp.version>2.9.0</weixin-java-cp.version>
+		<weixin-java-cp.version>3.0.0</weixin-java-cp.version>
 
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
