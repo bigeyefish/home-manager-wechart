@@ -1,5 +1,7 @@
 package com.honeypotato.homemanager.wechat.service;
 
+import com.alibaba.fastjson.JSONObject;
+import com.honeypotato.homemanager.wechat.model.PushMsg;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.cp.api.WxCpService;
 import me.chanjar.weixin.cp.bean.WxCpMessage;
@@ -22,11 +24,12 @@ public class SubscribeReceiver {
 
     public void receiveMessage(String message) {
         try {
-            WxCpMessageSendResult result = wxCpService.messageSend(WxCpMessage.TEXT().content("收到信息:" + message).toUser("wangshiyu").build());
+            PushMsg pushMsg = JSONObject.parseObject(message, PushMsg.class);
+            WxCpMessageSendResult result = wxCpService.messageSend(WxCpMessage.TEXT().content(pushMsg.getContent()).toUser(pushMsg.getToUser()).build());
             System.out.println(result);
         } catch (WxErrorException e) {
+            System.out.println(message);
             e.printStackTrace();
         }
-        System.out.println(String.format("Received message: %s", message));
     }
 }
